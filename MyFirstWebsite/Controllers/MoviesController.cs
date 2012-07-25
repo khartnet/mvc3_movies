@@ -21,6 +21,33 @@ namespace MyFirstWebsite.Controllers
             return View(db.Movies.ToList());
         }
 
+        public ActionResult SearchIndex(string movieGenre, string searchString)
+        {
+            var GenreLst = new List<string>();
+
+            var GenreQry = from d in db.Movies
+                           orderby d.Genre
+                           select d.Genre;
+            GenreLst.AddRange(GenreQry.Distinct());
+            ViewBag.movieGenre = new SelectList(GenreLst);
+
+            var movies = from m in db.Movies
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title.Contains(searchString));
+            }
+
+            if (string.IsNullOrEmpty(movieGenre))
+                return View(movies);
+            else
+            {
+                return View(movies.Where(x => x.Genre == movieGenre));
+            }
+
+        }
+
         //
         // GET: /Movies/Details/5
 
@@ -57,9 +84,13 @@ namespace MyFirstWebsite.Controllers
         //
         // GET: /Movies/Edit/5
  
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id = 0)
         {
             Movie movie = db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
             return View(movie);
         }
 
