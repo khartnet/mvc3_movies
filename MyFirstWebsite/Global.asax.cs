@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Data.Entity;            // Database.SetInitialize
+using MyFirstWebsite.Models;              // MovieInitializer
 
 namespace MyFirstWebsite
 {
@@ -31,6 +33,8 @@ namespace MyFirstWebsite
 
         protected void Application_Start()
         {
+            Database.SetInitializer<MovieDBContext>(new MovieInitializer());
+            
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
