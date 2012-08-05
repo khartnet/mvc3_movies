@@ -48,12 +48,20 @@
             @Html.ValidationMessageFor(model => model.Price)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rating)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rating)
+            @Html.ValidationMessageFor(model => model.Rating)
+        </div>
+
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" class="btn" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn" })
 </div>
