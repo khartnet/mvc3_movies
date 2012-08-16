@@ -34,7 +34,8 @@ namespace MyFirstWebsite
         protected void Application_Start()
         {
             Database.SetInitializer<MovieDBContext>(new MovieInitializer());
-            
+            Database.SetInitializer<WorkEventDBContext>(new WorkEventInitializer());
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
